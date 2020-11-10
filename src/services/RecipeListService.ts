@@ -57,7 +57,12 @@ export const getRecipeList = async (request: Request, response: Response): Promi
                 .json(buildStatusJson(503, `Puppy Recipes is unavailable at '${error.config.url}`));
         });
 
-    await getRecipesGifs(puppyRecipes, recipes);
+    await getRecipesGifs(puppyRecipes, recipes)
+        .catch(() => {
+            return response
+                .status(503)
+                .json(buildStatusJson(503, 'Giphy is currently unavailable.'));
+        });
 
     const recipeList: RecipeResponse = {
         keywords: keywords.sort(),
