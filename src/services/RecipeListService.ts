@@ -29,22 +29,33 @@ const getRecipesGifs = async (puppyRecipes: RecipePuppyResponse[], recipes: Reci
     }
 }
 
+const buildStatusJson = (status: number, message: string) => {
+    return {
+        status: status,
+        message: message,
+    }
+}
+
 export const getRecipeList = async (request: Request, response: Response): Promise<Response> => {
     const {i}: { i: string; } = request.query
     const keywords = i.split(',').sort();
 
     if (!validateKeywords(keywords)) {
-        return response.status(400).json({
-            status: 400,
-            message: 'Please select up to 3 ingredients.',
-        });
+        return response
+            .status(400)
+            .json(buildStatusJson(400, 'Please select up to 3 ingredients.'));
     }
 
     let puppyRecipes: RecipePuppyResponse[] = [];
     const recipes: Recipe[] = [];
 
     await getPuppyRecipes(keywords)
-        .then(response => puppyRecipes = response);
+        .then(response => puppyRecipes = response)
+        .catch(error => {
+            return response
+                .status(503)
+                .json(buildStatusJson(503, `Puppy Recipes is unavailable at '${error.config.url}`));
+        });
 
     await getRecipesGifs(puppyRecipes, recipes);
 
