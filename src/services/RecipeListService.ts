@@ -15,6 +15,20 @@ const validateKeywords = (keywords: string[]) => {
     return keywords.length < 3;
 }
 
+const getRecipesGifs = async (puppyRecipes: RecipePuppyResponse[], recipes: Recipe[]) => {
+    for (const puppyRecipe of puppyRecipes) {
+        await getGif(puppyRecipe.title)
+            .then((gif: string) => {
+                recipes.push({
+                    title: puppyRecipe.title,
+                    ingredients: puppyRecipe.ingredients,
+                    link: puppyRecipe.link,
+                    gif: gif,
+                });
+            });
+    }
+}
+
 export const getRecipeList = async (request: Request, response: Response): Promise<Response> => {
     const {i}: { i: string; } = request.query
     const keywords = i.split(',').sort();
@@ -32,17 +46,7 @@ export const getRecipeList = async (request: Request, response: Response): Promi
     await getPuppyRecipes(keywords)
         .then(response => puppyRecipes = response);
 
-    for (const puppyRecipe of puppyRecipes) {
-        await getGif(puppyRecipe.title)
-            .then((gif: string) => {
-                recipes.push({
-                    title: puppyRecipe.title,
-                    ingredients: puppyRecipe.ingredients,
-                    link: puppyRecipe.link,
-                    gif: gif,
-                });
-            });
-    }
+    await getRecipesGifs(puppyRecipes, recipes);
 
     const recipeList: RecipeResponse = {
         keywords: keywords.sort(),
