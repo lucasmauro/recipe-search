@@ -1,12 +1,12 @@
 import sendGetRequest from './HttpRequestService';
 
-interface RecipePuppyResponse {
+export interface RecipePuppyResponse {
     title: string,
-    link: string,
     ingredients: string[],
+    link: string,
 }
 
-const getPuppyRecipes = (keywords: string[]) => {
+export const getPuppyRecipes = (keywords: string[]) => {
     let url = `http://www.recipepuppy.com/api/?i=${keywords}`;
 
     return sendGetRequest(url).then(response => {
@@ -32,4 +32,3 @@ const getPuppyRecipes = (keywords: string[]) => {
     });
 };
 
-export default getPuppyRecipes;
