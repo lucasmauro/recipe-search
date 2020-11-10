@@ -18,7 +18,7 @@ app.get('/recipes', async (request, response) => {
         recipes = response;
     });
 
-    response.json(recipes);
+    response.status(200).json(recipes);
 });
 
 app.listen(3333);
