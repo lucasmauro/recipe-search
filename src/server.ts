@@ -1,24 +1,9 @@
 import express from 'express';
-
-import getRecipeList from "./services/RecipeListService";
+import routes from "./routes/recipes";
 
 const app = express();
 
 app.use(express.json());
-
-
-app.get('/recipes', async (request, response) => {
-    // @ts-ignore
-    const {i}: { i: string; } = request.query
-
-    const keywords = i.split(',').sort();
-
-    let recipes;
-    await getRecipeList(keywords).then(response => {
-        recipes = response;
-    });
-
-    response.status(200).json(recipes);
-});
+app.use(routes);
 
 app.listen(3333);
