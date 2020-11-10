@@ -1,19 +1,9 @@
 import Router from 'express';
-import {getRecipeList, RecipeResponse} from "../services/RecipeListService";
+import {getRecipeList} from "../services/RecipeListService";
 
 
 const routes = Router();
 
-routes.get('/recipes', async (request, response) => {
-    const {i}: { i: string; } = request.query
-
-    const keywords = i.split(',').sort();
-
-    let recipes;
-    await getRecipeList(keywords)
-        .then((response: RecipeResponse) => recipes = response);
-
-    response.status(200).json(recipes);
-});
+routes.get('/recipes', getRecipeList);
 
 export default routes;
