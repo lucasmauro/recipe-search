@@ -1,11 +1,11 @@
 version: '3'
 
 services:
-  delivery-much-tech-challenge:
+  recipe-search:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: delivery-much-tech-challenge
+    container_name: recipe-search
     restart: unless-stopped
     env_file: .env
     environment:

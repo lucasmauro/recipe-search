@@ -1,8 +1,8 @@
 {
-  "name": "delivery-much-tech-challenge",
+  "name": "recipe-search",
   "version": "1.0.0",
   "main": "index.js",
-  "repository": "git@github.com:lucasmauro/delivery-much-tech-challenge.git",
+  "repository": "git@github.com:lucasmauro/recipe-search.git",
   "author": "Lucas Mauro <lucasmaurodesouza@gmail.com>",
   "license": "MIT",
   "scripts": {
