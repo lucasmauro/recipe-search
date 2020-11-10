@@ -31,10 +31,8 @@ export const getRecipeList = async (keywords: string[]): Promise<RecipeResponse>
             });
     }
 
-    const recipesResponse: RecipeResponse = {
+    return {
         keywords: keywords.sort(),
         recipes: recipes,
-    }
-
-    return recipesResponse;
+    };
 };
