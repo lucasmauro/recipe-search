@@ -51,10 +51,10 @@ export const getRecipeList = async (request: Request, response: Response): Promi
 
     await getPuppyRecipes(keywords)
         .then(response => puppyRecipes = response)
-        .catch(error => {
+        .catch(() => {
             return response
                 .status(503)
-                .json(buildStatusJson(503, `Puppy Recipes is unavailable at '${error.config.url}`));
+                .json(buildStatusJson(503, 'Recipe Puppy is currently unavailable.'));
         });
 
     await getRecipesGifs(puppyRecipes, recipes)
