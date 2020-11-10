@@ -1,0 +1,18 @@
+version: '3'
+
+services:
+  delivery-much-tech-challenge:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: delivery-much-tech-challenge
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      - APP_PORT=$APP_PORT
+      - GIPHY_API_KEY=$GIPHY_API_KEY
+    ports:
+      - ${APP_PORT}:${APP_PORT}
+    volumes:
+      - .:/usr/src/app
+    command: yarn dev
