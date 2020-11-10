@@ -6,16 +6,14 @@ export interface RecipePuppyResponse {
     link: string,
 }
 
-export const getPuppyRecipes = (keywords: string[]) => {
-    let url = `http://www.recipepuppy.com/api/?i=${keywords}`;
+export const getPuppyRecipes = (keywords: string[]): Promise<RecipePuppyResponse[]> => {
+    const url = `http://www.recipepuppy.com/api/?i=${keywords}`;
 
     return sendGetRequest(url).then(response => {
-        let recipes: RecipePuppyResponse[];
+        const recipes: RecipePuppyResponse[] = response.results.map((result: any) => {
+            const {title, href, ingredients}: { title: string, href: string, ingredients: string } = result;
 
-        recipes = response.results.map((result: any) => {
-            let {title, href, ingredients}: { title: string, href: string, ingredients: string } = result;
-
-            let ingredientsList = ingredients.split(',')
+            const ingredientsList = ingredients.split(',')
                 .map(item => {
                     return item.trim();
                 })
@@ -27,7 +25,6 @@ export const getPuppyRecipes = (keywords: string[]) => {
                 ingredients: ingredientsList,
             };
         });
-
         return recipes;
     });
 };

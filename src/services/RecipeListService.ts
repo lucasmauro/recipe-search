@@ -10,9 +10,9 @@ export interface RecipeResponse {
     recipes: Recipe[],
 }
 
-export const getRecipeList = async (keywords: string[]) => {
+export const getRecipeList = async (keywords: string[]): Promise<RecipeResponse> => {
     let puppyRecipes: RecipePuppyResponse[] = [];
-    let recipes: Recipe[] = [];
+    const recipes: Recipe[] = [];
 
     await getPuppyRecipes(keywords)
         .then(response => {
@@ -31,7 +31,7 @@ export const getRecipeList = async (keywords: string[]) => {
             });
     }
 
-    let recipesResponse: RecipeResponse = {
+    const recipesResponse: RecipeResponse = {
         keywords: keywords.sort(),
         recipes: recipes,
     }
