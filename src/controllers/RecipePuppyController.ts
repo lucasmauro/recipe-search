@@ -1,4 +1,4 @@
-import sendGetRequest from './HttpRequestService';
+import sendGetRequest from './HttpRequestController';
 
 export interface RecipePuppyResponse {
     title: string,

@@ -1,6 +1,6 @@
-import {getPuppyRecipes, RecipePuppyResponse} from "./RecipePuppyService";
+import {getPuppyRecipes, RecipePuppyResponse} from "./RecipePuppyController";
 import {Request, Response} from 'express';
-import getGif from "./GiphyService";
+import getGif from "./GiphyController";
 
 interface Recipe extends RecipePuppyResponse {
     gif: string,

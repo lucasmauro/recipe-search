@@ -1,5 +1,5 @@
 import Router from 'express';
-import {getRecipeList} from "../services/RecipeListService";
+import {getRecipeList} from "../controllers/RecipeListController";
 
 
 const routes = Router();

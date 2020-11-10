@@ -1,4 +1,4 @@
-import sendGetRequest from './HttpRequestService';
+import sendGetRequest from './HttpRequestController';
 
 const getGif = async (title: string): Promise<string> => {
     const key = process.env.GIPHY_API_KEY;
