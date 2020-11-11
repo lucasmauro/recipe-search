@@ -6,7 +6,7 @@ const sendGetRequest = (url: string) => {
         method: 'get'
     }).then(response => {
         return response.data;
-    })
+    });
 };
 
 export default sendGetRequest;
