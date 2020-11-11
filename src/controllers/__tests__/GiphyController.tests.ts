@@ -25,7 +25,7 @@ beforeAll(() => {
     expectedResponse = url;
 });
 
-test('Recipe Puppy Controller returns ingredients in alphabetical order', async () => {
+test('Giphy Controller returns gif in expected format', async () => {
     let response = '';
     await getGif('Any Title')
         .then(gif => {
