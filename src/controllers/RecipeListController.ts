@@ -1,5 +1,4 @@
 import {getPuppyRecipes, RecipePuppyResponse} from "./RecipePuppyController";
-import {Request, Response} from 'express';
 import getGif from "./GiphyController";
 
 interface Recipe extends RecipePuppyResponse {
@@ -9,6 +8,22 @@ interface Recipe extends RecipePuppyResponse {
 interface RecipeResponse {
     keywords: string[],
     recipes: Recipe[],
+}
+
+export class GeneralError extends Error {
+    status: number
+
+    constructor(status: number, message: string) {
+        super(message);
+        this.status = status;
+    }
+
+    toJson = () => {
+        return {
+            status: this.status,
+            message: this.message,
+        }
+    }
 }
 
 const validateKeywords = (keywords: string[]) => {
@@ -29,21 +44,9 @@ const getRecipesGifs = async (puppyRecipes: RecipePuppyResponse[], recipes: Reci
     }
 }
 
-const buildStatusJson = (status: number, message: string) => {
-    return {
-        status: status,
-        message: message,
-    }
-}
-
-export const getRecipeList = async (request: Request, response: Response): Promise<Response> => {
-    const {i}: { i: string; } = request.query
-    const keywords = i.split(',').sort();
-
+export const getRecipeList = async (keywords: string[]): Promise<RecipeResponse> => {
     if (!validateKeywords(keywords)) {
-        return response
-            .status(400)
-            .json(buildStatusJson(400, 'Please select up to 3 ingredients.'));
+        throw new GeneralError(400, 'Please select up to 3 ingredients.');
     }
 
     let puppyRecipes: RecipePuppyResponse[] = [];
@@ -52,22 +55,16 @@ export const getRecipeList = async (request: Request, response: Response): Promi
     await getPuppyRecipes(keywords)
         .then(response => puppyRecipes = response)
         .catch(() => {
-            return response
-                .status(503)
-                .json(buildStatusJson(503, 'Recipe Puppy is currently unavailable.'));
+            throw new GeneralError(503, 'Recipe Puppy is currently unavailable.');
         });
 
     await getRecipesGifs(puppyRecipes, recipes)
         .catch(() => {
-            return response
-                .status(503)
-                .json(buildStatusJson(503, 'Giphy is currently unavailable.'));
+            throw new GeneralError(503, 'Giphy is currently unavailable.');
         });
 
-    const recipeList: RecipeResponse = {
+    return {
         keywords: keywords.sort(),
         recipes: recipes,
     };
-
-    return response.status(200).json(recipeList);
 };

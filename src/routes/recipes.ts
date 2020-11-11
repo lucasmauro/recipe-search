@@ -1,9 +1,22 @@
-import Router from 'express';
-import {getRecipeList} from "../controllers/RecipeListController";
+import Router, {Request, Response} from 'express';
+import {GeneralError, getRecipeList} from "../controllers/RecipeListController";
 
 
 const routes = Router();
 
-routes.get('/recipes', getRecipeList);
+routes.get('/recipes', async (request: Request, response: Response) => {
+    const {i}: { i: string; } = request.query
+    const keywords = i.split(',').sort();
+
+    await getRecipeList(keywords)
+        .then(recipeList => {
+            return response.status(200).json(recipeList);
+        })
+        .catch((error: GeneralError) => {
+            return response
+                .status(error.status)
+                .json(error.toJson());
+        });
+});
 
 export default routes;
