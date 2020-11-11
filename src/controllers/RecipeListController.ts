@@ -10,7 +10,7 @@ interface RecipeResponse {
     recipes: Recipe[],
 }
 
-export class GeneralError extends Error {
+class GeneralError extends Error {
     status: number
 
     constructor(status: number, message: string) {
@@ -46,7 +46,7 @@ const getRecipesGifs = async (puppyRecipes: RecipePuppyResponse[], recipes: Reci
 
 export const getRecipeList = async (keywords: string[]): Promise<RecipeResponse> => {
     if (!validateKeywords(keywords)) {
-        throw new GeneralError(400, 'Please select up to 3 ingredients.');
+        throw new GeneralError(400, 'Please select up to 3 ingredients.').toJson();
     }
 
     let puppyRecipes: RecipePuppyResponse[] = [];
@@ -55,12 +55,12 @@ export const getRecipeList = async (keywords: string[]): Promise<RecipeResponse>
     await getPuppyRecipes(keywords)
         .then(response => puppyRecipes = response)
         .catch(() => {
-            throw new GeneralError(503, 'Recipe Puppy is currently unavailable.');
+            throw new GeneralError(503, 'Recipe Puppy is currently unavailable.').toJson();
         });
 
     await getRecipesGifs(puppyRecipes, recipes)
         .catch(() => {
-            throw new GeneralError(503, 'Giphy is currently unavailable.');
+            throw new GeneralError(503, 'Giphy is currently unavailable.').toJson();
         });
 
     return {

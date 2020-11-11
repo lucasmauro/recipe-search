@@ -1,5 +1,5 @@
 import Router, {Request, Response} from 'express';
-import {GeneralError, getRecipeList} from "../controllers/RecipeListController";
+import {getRecipeList} from "../controllers/RecipeListController";
 
 
 const routes = Router();
@@ -12,10 +12,10 @@ routes.get('/recipes', async (request: Request, response: Response) => {
         .then(recipeList => {
             return response.status(200).json(recipeList);
         })
-        .catch((error: GeneralError) => {
+        .catch((error) => {
             return response
                 .status(error.status)
-                .json(error.toJson());
+                .json(error);
         });
 });
 
