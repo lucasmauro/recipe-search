@@ -75,6 +75,21 @@ test('Recipe List Controller verifies maximum number of keywords', async () => {
         });
 });
 
+test('Recipe List Controller filters empty keywords', async () => {
+    mock.onGet(new RegExp('/.*recipepuppy.*/'))
+        .reply(200, validMockRecipePuppyData);
+    mock.onGet(new RegExp('/.*giphy.*/'))
+        .reply(200, validMockGiphyData);
+
+    let response;
+    await getRecipeList(['', 'any', '', 'keyword', '', 'works', ''])
+        .then(resp => {
+            response = resp;
+        });
+
+    expect(response).toEqual(validExpectedResponse);
+});
+
 test('Recipe List Controller handles Recipe Puppy inaccessibility', async () => {
     mock.onGet(new RegExp('/.*unreachable_recipepuppy.*/'))
         .reply(200, validMockRecipePuppyData);

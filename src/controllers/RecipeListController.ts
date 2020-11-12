@@ -45,6 +45,7 @@ const getRecipesGifs = async (puppyRecipes: RecipePuppyResponse[], recipes: Reci
 }
 
 export const getRecipeList = async (keywords: string[]): Promise<RecipeResponse> => {
+    keywords = await keywords.filter(item => item);
     if (!validateKeywords(keywords)) {
         throw new GeneralError(400, 'Please select up to 3 ingredients.').toJson();
     }
