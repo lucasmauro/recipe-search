@@ -1,5 +1,6 @@
 import {getPuppyRecipes, RecipePuppyResponse} from "./RecipePuppyService";
 import getGif from "../services/GiphyService";
+import GeneralError from "../errors/GeneralError";
 
 interface Recipe extends RecipePuppyResponse {
     gif: string,
@@ -8,22 +9,6 @@ interface Recipe extends RecipePuppyResponse {
 interface RecipeResponse {
     keywords: string[],
     recipes: Recipe[],
-}
-
-class GeneralError extends Error {
-    status: number
-
-    constructor(status: number, message: string) {
-        super(message);
-        this.status = status;
-    }
-
-    toJson = () => {
-        return {
-            status: this.status,
-            message: this.message,
-        }
-    }
 }
 
 const validateKeywords = (keywords: string[]) => {
