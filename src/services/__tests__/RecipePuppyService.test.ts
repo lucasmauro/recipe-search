@@ -1,4 +1,4 @@
-import {getPuppyRecipes, RecipePuppyResponse} from '../RecipePuppyController'
+import {getPuppyRecipes, RecipePuppyResponse} from '../RecipePuppyService'
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
@@ -8,7 +8,7 @@ beforeAll(() => {
     const mock = new MockAdapter(axios);
     const mockData = {
         results: [
-            {title: 'Meal One', href: 'http://some-url.com/meal-one', ingredients: 'garlic, tomato,onion'},
+            {title: 'Meal One', href: 'http://some-url.com/meal-one', ingredients: 'garlic, tomato, onion'},
             {title: 'Meal Two', href: 'http://some-url.com/meal-two', ingredients: 'wheat powder, beat, oil'},
         ]
     };

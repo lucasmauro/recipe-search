@@ -1,4 +1,4 @@
-import getGif from "../GiphyController";
+import getGif from "../GiphyService";
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
