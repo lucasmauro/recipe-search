@@ -1,5 +1,7 @@
 # Recipe Search
 
+For Portuguese, click [here](LEIAME.md).
+
 Recipe Search provides you with a list of recipes based on the ingredients of your choice.
 This is done by consuming the [Recipe Puppy API](http://www.recipepuppy.com/about/api/).
 Additionally, each recipe contains a gif that represents it, taken from the [Giphy API](https://developers.giphy.com/docs/)!
