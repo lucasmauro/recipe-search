@@ -27,7 +27,7 @@ class GeneralError extends Error {
 }
 
 const validateKeywords = (keywords: string[]) => {
-    return keywords.length <= 3;
+    return keywords.length <= 3 && keywords.length != 0;
 }
 
 const getRecipesGifs = async (puppyRecipes: RecipePuppyResponse[], recipes: Recipe[]) => {

@@ -61,6 +61,14 @@ test('Recipe List Controller returns expected result', async () => {
     expect(response).toEqual(validExpectedResponse);
 });
 
+test('Recipe List Controller verifies minimum number of keywords', async () => {
+    await getRecipeList([])
+        .catch((error) => {
+            expect(error.message).toEqual('Please select up to 3 ingredients.');
+            expect(error.status).toEqual(400);
+        });
+});
+
 test('Recipe List Controller verifies maximum number of keywords', async () => {
     await getRecipeList(['more', 'than', 'three', 'keywords'])
         .catch((error) => {
