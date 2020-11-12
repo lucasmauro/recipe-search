@@ -1,4 +1,4 @@
-import {getRecipeList} from '../RecipeListController'
+import {getRecipeList} from '../RecipeService';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
