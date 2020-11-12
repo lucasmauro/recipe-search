@@ -45,14 +45,13 @@ const validExpectedResponse = {
 
 beforeAll(() => {
     mock = new MockAdapter(axios);
-});
-
-test('Recipe List Controller returns expected result', async () => {
     mock.onGet(new RegExp('/.*recipepuppy.*/'))
         .reply(200, validMockRecipePuppyData);
     mock.onGet(new RegExp('/.*giphy.*/'))
         .reply(200, validMockGiphyData);
+});
 
+test('Recipe List Controller returns expected result', async () => {
     let response;
     await getRecipeList(keywords)
         .then(resp => {
@@ -63,11 +62,6 @@ test('Recipe List Controller returns expected result', async () => {
 });
 
 test('Recipe List Controller verifies maximum number of keywords', async () => {
-    mock.onGet(new RegExp('/.*recipepuppy.*/'))
-        .reply(200, validMockRecipePuppyData);
-    mock.onGet(new RegExp('/.*giphy.*/'))
-        .reply(200, validMockGiphyData);
-
     await getRecipeList(['more', 'than', 'three', 'keywords'])
         .catch((error) => {
             expect(error.message).toEqual('Please select up to 3 ingredients.');
@@ -76,11 +70,6 @@ test('Recipe List Controller verifies maximum number of keywords', async () => {
 });
 
 test('Recipe List Controller filters empty keywords', async () => {
-    mock.onGet(new RegExp('/.*recipepuppy.*/'))
-        .reply(200, validMockRecipePuppyData);
-    mock.onGet(new RegExp('/.*giphy.*/'))
-        .reply(200, validMockGiphyData);
-
     let response;
     await getRecipeList(['', 'any', '', 'keyword', '', 'works', ''])
         .then(resp => {
@@ -93,8 +82,6 @@ test('Recipe List Controller filters empty keywords', async () => {
 test('Recipe List Controller handles Recipe Puppy inaccessibility', async () => {
     mock.onGet(new RegExp('/.*unreachable_recipepuppy.*/'))
         .reply(200, validMockRecipePuppyData);
-    mock.onGet(new RegExp('/.*giphy.*/'))
-        .reply(200, validMockGiphyData);
 
     await getRecipeList(keywords)
         .catch((error) => {
@@ -104,8 +91,6 @@ test('Recipe List Controller handles Recipe Puppy inaccessibility', async () => 
 });
 
 test('Recipe List Controller handles Giphy inaccessibility', async () => {
-    mock.onGet(new RegExp('/.*recipepuppy.*/'))
-        .reply(200, validMockRecipePuppyData);
     mock.onGet(new RegExp('/.*unreachable_giphy.*/'))
         .reply(200, validMockGiphyData);
 
