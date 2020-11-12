@@ -5,7 +5,7 @@ import MockAdapter from 'axios-mock-adapter';
 
 let mock: MockAdapter;
 
-const keywords = ['any', 'keyword'];
+const keywords = ['any', 'keyword', 'works'];
 const giphyUrl = 'https://media.giphy.com/media/some_gif/giphy.gif';
 const validMockRecipePuppyData = {
     results: [

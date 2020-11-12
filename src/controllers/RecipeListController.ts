@@ -1,5 +1,5 @@
-import {getPuppyRecipes, RecipePuppyResponse} from "./RecipePuppyController";
-import getGif from "./GiphyController";
+import {getPuppyRecipes, RecipePuppyResponse} from "../services/RecipePuppyService";
+import getGif from "../services/GiphyService";
 
 interface Recipe extends RecipePuppyResponse {
     gif: string,
@@ -27,7 +27,7 @@ class GeneralError extends Error {
 }
 
 const validateKeywords = (keywords: string[]) => {
-    return keywords.length < 3;
+    return keywords.length <= 3;
 }
 
 const getRecipesGifs = async (puppyRecipes: RecipePuppyResponse[], recipes: Recipe[]) => {
