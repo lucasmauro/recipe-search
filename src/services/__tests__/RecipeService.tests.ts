@@ -90,7 +90,7 @@ test('Recipe List Controller filters empty keywords', async () => {
 });
 
 test('Recipe List Controller handles Recipe Puppy inaccessibility', async () => {
-    mock.onGet(new RegExp('/.*unreachable_recipepuppy.*/'))
+    mock.onGet(new RegExp('.*unreachable_recipepuppy.*'))
         .reply(200, validMockRecipePuppyData);
 
     await getRecipeList(keywords)
@@ -101,7 +101,7 @@ test('Recipe List Controller handles Recipe Puppy inaccessibility', async () => 
 });
 
 test('Recipe List Controller handles Giphy inaccessibility', async () => {
-    mock.onGet(new RegExp('/.*unreachable_giphy.*/'))
+    mock.onGet(new RegExp('.*unreachable_giphy.*'))
         .reply(200, validMockGiphyData);
 
     await getRecipeList(keywords)
