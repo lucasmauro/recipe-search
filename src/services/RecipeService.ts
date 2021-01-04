@@ -15,18 +15,19 @@ const validateKeywords = (keywords: string[]) => {
     return keywords.length <= 3 && keywords.length != 0;
 }
 
-const getRecipesGifs = async (puppyRecipes: RecipePuppyResponse[], recipes: Recipe[]) => {
-    for (const puppyRecipe of puppyRecipes) {
-        await getGif(puppyRecipe.title)
-            .then((gif: string) => {
-                recipes.push({
-                    title: puppyRecipe.title,
-                    ingredients: puppyRecipe.ingredients,
-                    link: puppyRecipe.link,
+const getRecipesGifs = async (puppyRecipes: RecipePuppyResponse[]) => {
+    return await Promise.all(
+        puppyRecipes.map(async (recipe) => {
+                let gif = await getGif(recipe.title);
+
+                return {
+                    title: recipe.title,
+                    ingredients: recipe.ingredients,
+                    link: recipe.link,
                     gif: gif,
-                });
-            });
-    }
+                }
+            }
+        ));
 }
 
 export const getRecipeList = async (keywords: string[]): Promise<RecipeResponse> => {
@@ -36,7 +37,7 @@ export const getRecipeList = async (keywords: string[]): Promise<RecipeResponse>
     }
 
     let puppyRecipes: RecipePuppyResponse[] = [];
-    const recipes: Recipe[] = [];
+    let recipes: Recipe[] = [];
 
     await getPuppyRecipes(keywords)
         .then(response => puppyRecipes = response)
@@ -44,7 +45,8 @@ export const getRecipeList = async (keywords: string[]): Promise<RecipeResponse>
             throw new GeneralError(503, 'Recipe Puppy is currently unavailable.').toJson();
         });
 
-    await getRecipesGifs(puppyRecipes, recipes)
+    await getRecipesGifs(puppyRecipes)
+        .then(response => recipes = response)
         .catch(() => {
             throw new GeneralError(503, 'Giphy is currently unavailable.').toJson();
         });
