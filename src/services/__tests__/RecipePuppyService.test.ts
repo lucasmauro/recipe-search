@@ -5,6 +5,7 @@ import MockAdapter from 'axios-mock-adapter';
 let expectedResponse: RecipePuppyResponse[];
 
 beforeAll(() => {
+    process.env.RECIPE_PUPPY_API_ENDPOINT = 'http://www.recipepuppy.com/api';
     const mock = new MockAdapter(axios);
     const mockData = {
         results: [

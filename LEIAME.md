@@ -108,7 +108,9 @@ Caso `npm` requeira  ruma atualização, você pode realizá-la usando o própri
 A configuração necessária para Recipe Search está localizada no arquivo `.env`. Você deve editá-lo de acordo com a descrição:
 
 - APP_PORT: a porta na qual Recipe Search executará;
-- GIPHY_API_KEY: a chave para acessar a Giphy API e obter os arquivos gif. Mais informações podem ser encontradas [aqui](https://developers.giphy.com/docs/). 
+- GIPHY_API_KEY: a chave para acessar a Giphy API e obter os arquivos gif. Mais informações podem ser encontradas [aqui](https://developers.giphy.com/docs/);
+- GIPHY_API_ENDPOINT: o _endpoint_ para acessar a Giphy API e obter os arquivos gif. Mais informações podem ser encontradas [aqui](https://developers.giphy.com/docs/);
+- RECIPE_PUPPY_API_ENDPOINT: o _endpoint_ para acessar a Giphy API e obter receitas. Mais informações pondm ser encontradas [aqui](http://www.recipepuppy.com/about/api).
 
 ## Executar
     

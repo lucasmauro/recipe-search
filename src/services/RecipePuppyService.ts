@@ -7,7 +7,8 @@ export interface RecipePuppyResponse {
 }
 
 export const getPuppyRecipes = (keywords: string[]): Promise<RecipePuppyResponse[]> => {
-    const url = `http://www.recipepuppy.com/api/?i=${keywords}`;
+    const endpoint = process.env.RECIPE_PUPPY_API_ENDPOINT;
+    const url = `${endpoint}?i=${keywords}`;
 
     return sendGetRequest(url).then(response => {
         const recipes: RecipePuppyResponse[] = response.results.map((result: any) => {

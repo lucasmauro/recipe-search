@@ -44,10 +44,12 @@ const validExpectedResponse = {
 
 
 beforeAll(() => {
+    process.env.RECIPE_PUPPY_API_ENDPOINT = 'recipepuppy.com';
+    process.env.GIPHY_API_ENDPOINT = 'giphy.com';
     mock = new MockAdapter(axios);
-    mock.onGet(new RegExp('/.*recipepuppy.*/'))
+    mock.onGet(new RegExp('.*recipepuppy.*'))
         .reply(200, validMockRecipePuppyData);
-    mock.onGet(new RegExp('/.*giphy.*/'))
+    mock.onGet(new RegExp('.*giphy.*'))
         .reply(200, validMockGiphyData);
 });
 

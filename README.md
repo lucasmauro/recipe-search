@@ -108,7 +108,9 @@ If `npm` requires an update, you can do so using `npm` itself with the following
 The required configuration for Recipe Search is located in the `.env` file. You should edit the file according to the description:
 
 - APP_PORT: the port on which Recipe Search will run;
-- GIPHY_API_KEY: the Key for accessing the Giphy API and retrieving gif files. More information can be found [here](https://developers.giphy.com/docs/). 
+- GIPHY_API_KEY: the Key for accessing the Giphy API and retrieving gif files. More information can be found [here](https://developers.giphy.com/docs/);
+- GIPHY_API_ENDPOINT: the Endpoint for accessing the Giphy API and retrieving gif files. More information can be found [here](https://developers.giphy.com/docs/);
+- RECIPE_PUPPY_API_ENDPOINT: the Endpoint for accessing the Recipe Puppy API and retrieving recipes. More information can be found [here](http://www.recipepuppy.com/about/api/).
 
 ## Run
     
